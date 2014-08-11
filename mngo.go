@@ -19,6 +19,11 @@ var APISecret = ""
 
 type stringMap map[string]interface{}
 
+func Setup(key, secret string) {
+	APIKey = key
+	APISecret = secret
+}
+
 func GetMP3(id int64, ip string) string {
 	if ip == "" {
 		ip = "127.0.0.1"
