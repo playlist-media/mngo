@@ -10,13 +10,12 @@ import (
 	"net/url"
 	"strconv"
 	"time"
-
-	"github.com/playlist-media/playlist/backend/shared"
 )
 
 const BaseURI = "https://api.mndigital.com/"
 
-var SecretKey = []byte("")
+var APIKey = ""
+var APISecret = ""
 
 type stringMap map[string]interface{}
 
@@ -32,12 +31,12 @@ func GetMP3(id int64, ip string) string {
 	v.Set("assetCode", "014")
 	v.Set("protocol", "http")
 	v.Set("userIP", ip)
-	v.Set("apiKey", shared.Config.MNKey)
+	v.Set("apiKey", APIKey)
 	v.Set("timestamp", time.Now().String())
 
 	b := []byte(v.Encode())
 
-	key := hmac.New(md5.New, SecretKey)
+	key := hmac.New(md5.New, []byte(APISecret))
 	key.Write(b)
 
 	query := v.Encode() + "&signature=" + hex.EncodeToString(key.Sum(nil))
