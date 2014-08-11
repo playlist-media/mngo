@@ -5,7 +5,6 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -60,7 +59,14 @@ func GetMP3(id int64, ip string) string {
 		return ""
 	}
 
-	fmt.Printf("it is %s\n", results)
+	if success, ok := results["Success"].(bool); !ok || !success {
+		return ""
+	}
 
-	return mnURI
+	location, ok := results["Location"].(string)
+	if !ok {
+		return ""
+	}
+
+	return location
 }
