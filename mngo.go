@@ -1,4 +1,4 @@
-package medianet
+package mngo
 
 import (
 	"crypto/hmac"
