@@ -24,6 +24,14 @@ func Setup(key, secret string) {
 }
 
 func GetMP3(id int64, ip string) string {
+	return get(id, ip, "014")
+}
+
+func GetAAC(id int64, ip string) string {
+	return get(id, ip, "090")
+}
+
+func get(id int64, ip, assetCode string) string {
 	if ip == "" {
 		ip = "127.0.0.1"
 	}
@@ -32,7 +40,7 @@ func GetMP3(id int64, ip string) string {
 	v.Set("method", "Radio.GetMediaLocation")
 	v.Set("format", "json")
 	v.Set("trackId", strconv.FormatInt(id, 10))
-	v.Set("assetCode", "014")
+	v.Set("assetCode", assetCode)
 	v.Set("protocol", "http")
 	v.Set("userIP", ip)
 	v.Set("apiKey", APIKey)
